@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<blinkentheme title="Bibliothèque Nationale de France (Paris)"
+  columns="26" rows="20" channels="1" maxval="7" width="288" height="216"
+  type="bnf">
+
+  <background image="images/bnf-288x216-bg.png"/>
+  <overlay image="images/bnf-288x216-ov.png">
+    <grid dx="4" dy="8">
+      <window x="41" y="9" width="5" height="9"/>
+    </grid>
+  </overlay>
+
+</blinkentheme>
