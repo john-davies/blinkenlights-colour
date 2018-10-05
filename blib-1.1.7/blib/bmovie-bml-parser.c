@@ -55,7 +55,7 @@ struct _ParserData
 {
   gint      bits;
   gint      channels;
-  
+
   gint      frame_duration;
   guchar   *frame_data;
   gint      frame_next_row;
@@ -142,7 +142,7 @@ parser_start_element (BParserState   state,
                            "Invalid attributes for blm element");
               break;
             }
-          
+
           return PARSER_IN_BLM;
         }
       break;
@@ -201,7 +201,7 @@ parser_start_element (BParserState   state,
       /* only parse duration if we are lazy-loading ! */
       if (! strcmp (element_name, "duration") && data->lazy)
         return PARSER_IN_DURATION;
-      
+
       if (! strcmp (element_name, "loop"))
         return PARSER_IN_LOOP;
 
@@ -287,7 +287,7 @@ parser_end_element (BParserState   state,
       if (!cdata_len || g_ascii_tolower (*cdata) != 'n')
         data->movie->loop = TRUE;
       return PARSER_IN_HEADER;
-      
+
     case PARSER_IN_FRAME:
       if (data->frame_next_row != data->movie->height)
         {
@@ -329,13 +329,13 @@ parser_end_element (BParserState   state,
         bpp_src = data->bits <= 4 ? 1 : 2;
 
         src  = row;
-        dest = data->frame_data + (data->movie->width * data->frame_next_row);
+        dest = data->frame_data + (data->movie->width * data->movie->channels * data->frame_next_row);
 
-        for (; x < data->movie->width; x++, src += bpp_src, dest += 1)
+        for (; x < data->movie->width * data->movie->channels; x++, src += bpp_src, dest += 1)
           {
             *dest = 0;
 
-            for (i = 0; i < bpp_src; i++)        
+            for (i = 0; i < bpp_src; i++)
               {
                 *dest <<= 4;
 
@@ -389,7 +389,7 @@ parser_end_element (BParserState   state,
         g_free (row);
         data->frame_next_row++;
 
-        if (x != data->movie->width)
+        if (x != data->movie->width * data->movie->channels)
           return B_PARSER_STATE_UNKNOWN;
       }
       return PARSER_IN_FRAME;
@@ -425,7 +425,7 @@ parse_blm_attributes (ParserData   *data,
     }
 
   if (width > 0 && height > 0 &&
-      (bits >= 1 && bits <= 8) && (channels == 1)) /* channels == 3 */
+     (bits >= 1 && bits <= 8) && ( (channels == 1) || (channels == 3) ) )
     {
       data->movie->width    = width;
       data->movie->height   = height;

@@ -310,7 +310,7 @@ b_receiver_io_func (GIOChannel   *io,
 {
   BReceiver          *receiver;
   mcu_frame_header_t *header;
-  guchar              buf[0xfff];
+  guchar              buf[0xffff]; // Handle max size UDP packets
   BPacket            *packet = NULL;
   BPacket            *fake   = NULL;
   BPacket            *new    = NULL;
@@ -332,7 +332,10 @@ b_receiver_io_func (GIOChannel   *io,
                        (struct sockaddr *) &req_addr, &req_addr_length);
 
   if (buf_read < sizeof (BPacket))
+  {
+    g_printerr ("BReceiver: buf_read < sizeof (BPacket): %ld\n", buf_read );
     return TRUE;
+  }
 
   new = (BPacket *) buf;
 
@@ -345,7 +348,10 @@ b_receiver_io_func (GIOChannel   *io,
     case MAGIC_MCU_FRAME:
       if (buf_read < (sizeof (BPacket) +
                       header->width * header->height * header->channels))
+      {
+        g_printerr ("BReceiver: buf_read < sizeof (BPacket) + data: %ld\n", buf_read );
         return TRUE;
+      }
       /*  else fallthru  */
 
     case MAGIC_HEARTBEAT:

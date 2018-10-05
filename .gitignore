@@ -1,0 +1,61 @@
+# Gitignore file for Blinkenlights software
+
+# Common files
+# ------------
+*.pc
+Makefile
+libtool
+stamp-h1
+config.h
+config.log
+config.status
+*.o
+*.la
+*.lo
+.deps/
+.libs/
+
+# blib-1.1.7
+# ----------
+#Executables ( easier to list these manually )
+blib-1.1.7/test/test-module
+blib-1.1.7/test/test-module-scanner
+blib-1.1.7/test/test-movie-parser
+blib-1.1.7/test/test-movie-player
+blib-1.1.7/test/test-movie-writer
+blib-1.1.7/test/test-receiver
+blib-1.1.7/test/test-sender
+blib-1.1.7/test/test-theme-parser
+
+# Documentation
+blib-1.1.7/docs/reference/blib.types
+blib-1.1.7/docs/reference/version
+
+
+# blinkentools-2.9
+# ----------------
+#Executables ( easier to list these manually )
+blinkentools-2.9/src/b2b
+blinkentools-2.9/src/b2image
+blinkentools-2.9/src/blinkenproxy
+blinkentools-2.9/src/bmultiplexer
+blinkentools-2.9/src/bplay
+blinkentools-2.9/src/bsend
+
+# Documentation
+blinkentools-2.9/doc/b2b.1
+blinkentools-2.9/doc/b2image.1
+blinkentools-2.9/doc/b2mng.1
+blinkentools-2.9/doc/blinkenproxy.1
+blinkentools-2.9/doc/bmultiplexer.1
+blinkentools-2.9/doc/bplay.1
+blinkentools-2.9/doc/bsend.1
+
+# blinkensim-2.7
+# --------------
+#Executables ( easier to list these manually )
+blinkensim-2.7/src/blinkensim-aa
+blinkensim-2.7/src/blinkensim-gtk
+
+# Documentation
+blinkensim-2.7/doc/blinkensim.1
