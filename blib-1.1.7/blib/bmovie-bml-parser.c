@@ -168,10 +168,13 @@ parser_start_element (BParserState   state,
 
           if (data->frame_data)
             memset (data->frame_data, 0,
-                    data->movie->width * data->movie->height);
+                    data->movie->width *
+                    data->movie->height * 
+                    data->movie->channels);
           else
             data->frame_data = g_new0 (guchar, (data->movie->width *
-                                                data->movie->height));
+                                                data->movie->height *
+                                                data->movie->channels));
 
           data->frame_next_row = 0;
 
